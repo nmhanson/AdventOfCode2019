@@ -13,7 +13,7 @@ if [[ $1 -lt 1 || $1 -gt 25 ]]; then
 fi
 
 if [[ -f "$INPUT_FNAME" ]]; then
-    echo "Input file already exists"
+    echo "Input file already exists."
     exit 1
 fi
 
