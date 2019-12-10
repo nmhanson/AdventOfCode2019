@@ -17,15 +17,18 @@ defmodule Day1 do
       new_mass -> new_mass + calc_fuel_recursive(new_mass)
     end
   end
+
+  def prepare_input(input) do
+    String.trim(input)
+    |> String.split("\n")
+    |> Stream.map(&Integer.parse/1)
+    |> Stream.map(fn {mass, _} -> mass end)
+  end
 end
 
 {:ok, input} = File.read("input.txt")
 
-prepared_input =
-  String.trim(input)
-  |> String.split("\n")
-  |> Stream.map(&Integer.parse/1)
-  |> Stream.map(fn {mass, _} -> mass end)
+prepared_input = Day1.prepare_input(input)
 
 result =
   case System.argv() do
