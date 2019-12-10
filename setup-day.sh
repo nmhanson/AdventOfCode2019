@@ -18,8 +18,9 @@ if [[ -f "$INPUT_FNAME" ]]; then
 fi
 
 mkdir -p "$DIR_NAME"
-curl --cookie "session=`cat ./SECRET`" "https://adventofcode.com/2019/day/1/input" > "$INPUT_FNAME"
+curl --cookie "session=`cat ./SECRET`" "https://adventofcode.com/2019/day/$1/input" > "$INPUT_FNAME"
 
+# Initialize Elixir template for the day's challenges 
 cat <<EOF > "$DIR_NAME/day$1.exs"
 defmodule Day$1 do
   def part1(input) do
@@ -30,7 +31,7 @@ defmodule Day$1 do
     # TODO
   end
 
-  def prepare_input do
+  def prepare_input(input) do
     # TODO
   end
 end
