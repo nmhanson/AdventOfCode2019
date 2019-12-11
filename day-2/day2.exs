@@ -1,6 +1,7 @@
 defmodule Day2 do
   def part1(input) do
     run_intcode(input, input)
+    |> Enum.at(0)
   end
 
   def part2(_input) do
@@ -16,21 +17,24 @@ defmodule Day2 do
     |> List.replace_at(2, 2)
   end
 
-  defp run_intcode(rem_list, master_list) do
+  defp run_intcode(master_list, rem_list) do
     [op, x1_i, x2_i, dest_i | rest] = rem_list
 
-    res = case op do
-      1 -> do_add(x1_i, x2_i)
-      2 -> raise "2"
-      99 -> raise "99"
-      n -> raise n
+    res =
+      case op do
+        1 -> Enum.at(master_list, x1_i) + Enum.at(master_list, x2_i)
+        2 -> Enum.at(master_list, x1_i) * Enum.at(master_list, x2_i)
+        99 -> :end
+        n -> raise n
+      end
+
+    if res == :end do
+      master_list
+    else
+      List.replace_at(master_list, dest_i, res)
+      |> run_intcode(rest)
     end
   end
-
-  defp do_add do
-    # TODO
-  end
-
 end
 
 {:ok, input} = File.read("input.txt")
