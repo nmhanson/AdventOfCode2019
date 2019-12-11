@@ -1,6 +1,8 @@
 defmodule Day2 do
   def part1(input) do
-    run_intcode(input, input)
+    List.replace_at(input, 1, 12)
+    |> List.replace_at(2, 2)
+    |> run_intcode
     |> Enum.at(0)
   end
 
@@ -13,8 +15,10 @@ defmodule Day2 do
     |> String.split(",")
     |> Stream.map(&Integer.parse/1)
     |> Enum.map(fn {val, _} -> val end)
-    |> List.replace_at(1, 12)
-    |> List.replace_at(2, 2)
+  end
+
+  defp run_intcode(master_list, rem_list, noun, verb) do
+    # TODO
   end
 
   defp run_intcode(master_list, rem_list) do
@@ -34,6 +38,10 @@ defmodule Day2 do
       List.replace_at(master_list, dest_i, res)
       |> run_intcode(rest)
     end
+  end
+
+  defp run_intcode(master_list) do
+    run_intcode(master_list, master_list)
   end
 end
 
