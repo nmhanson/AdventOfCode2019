@@ -1,52 +1,29 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 DIR_NAME="day-$1"
+SOURCE_FNAME="./$DIR_NAME/day$1.exs"
 INPUT_FNAME="./$DIR_NAME/input.txt"
+TEMPLATE_FNAME="./elixir-template"
 
 if [[ $# -ne 1 ]]; then
-    echo "This script takes one argument: the day # for the AoC challenge."
-    exit 1
+  echo "This script takes one argument: the day # for the AoC challenge."
+  exit 1
 fi
 
 if [[ $1 -lt 1 || $1 -gt 25 ]]; then
-    echo "Out of date range."
-    exit 1
+  echo "Out of date range."
+  exit 1
 fi
 
 if [[ -f "$INPUT_FNAME" ]]; then
-    echo "Input file already exists."
-    exit 1
+  echo "Input file already exists."
+else
+  mkdir -p "$DIR_NAME"
+  curl --cookie "session=`cat ./SECRET`" "https://adventofcode.com/2019/day/$1/input" > "$INPUT_FNAME"
 fi
 
-mkdir -p "$DIR_NAME"
-curl --cookie "session=`cat ./SECRET`" "https://adventofcode.com/2019/day/$1/input" > "$INPUT_FNAME"
-
-# Initialize Elixir template for the day's challenges 
-cat <<EOF > "$DIR_NAME/day$1.exs"
-defmodule Day$1 do
-  def part1(input) do
-    # TODO
-  end
-
-  def part$1(input) do
-    # TODO
-  end
-
-  def prepare_input(input) do
-    # TODO
-  end
-end
-
-{:ok, input} = File.read("input.txt")
-
-prepared_input = Day$1.prepare_input(input)
-
-result =
-  case System.argv() do
-    ["1"] -> Day$1.part1(prepared_input)
-    ["2"] -> Day$1.part2(prepared_input)
-    [] -> Day$1.part1(prepared_input) <> "\n" <> Day$1.part2(prepared_input)
-    _ -> "?"
-  end
-
-IO.puts(result)
-EOF
+if [[ -f "$SOURCE_FNAME" ]]; then
+  echo "Source File already exists."
+else
+  # Initialize Elixir template for the day's challenges
+  sed "s/@DAY_NUM/$1/g" "$TEMPLATE_FNAME" > "$SOURCE_FNAME"
+fi

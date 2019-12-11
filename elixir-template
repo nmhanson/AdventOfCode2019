@@ -1,0 +1,27 @@
+defmodule Day@DAY_NUM do
+  def part1(input) do
+    # TODO
+  end
+
+  def part@DAY_NUM(input) do
+    # TODO
+  end
+
+  def prepare_input(input) do
+    # TODO
+  end
+end
+
+{:ok, input} = File.read("input.txt")
+
+prepared_input = Day@DAY_NUM.prepare_input(input)
+
+result =
+  case System.argv() do
+    ["1"] -> Day@DAY_NUM.part1(prepared_input)
+    ["2"] -> Day@DAY_NUM.part2(prepared_input)
+    [] -> Day@DAY_NUM.part1(prepared_input) <> "\n" <> Day@DAY_NUM.part2(prepared_input)
+    _ -> "?"
+  end
+
+IO.puts(result)

@@ -19,15 +19,18 @@ defmodule Day2 do
   defp run_intcode(rem_list, master_list) do
     [op, x1_i, x2_i, dest_i | rest] = rem_list
 
-    case op do
-      1 -> do_add(x1_i, x2_i, dest_i)
+    res = case op do
+      1 -> do_add(x1_i, x2_i)
       2 -> raise "2"
       99 -> raise "99"
       n -> raise n
     end
   end
 
-  defp do_add
+  defp do_add do
+    # TODO
+  end
+
 end
 
 {:ok, input} = File.read("input.txt")
