@@ -5,15 +5,10 @@ defmodule Day2 do
   end
 
   def part2(input) do
-    Stream.map(0..99, fn noun ->
-      Stream.map(0..99, fn verb ->
-        {Enum.at(run_intcode(input, noun, verb), 0), noun, verb}
-      end)
-    end)
-    |> Enum.find_value(fn stream ->
-      Enum.find_value(stream, fn result ->
-        case result do
-          {19_690_720, noun, verb} -> noun * 100 + verb
+    Enum.find_value(0..99, fn noun ->
+      Enum.find_value(0..99, fn verb ->
+        case Enum.at(run_intcode(input, noun, verb), 0) do
+          19_690_720 -> noun * 100 + verb
           _ -> nil
         end
       end)
