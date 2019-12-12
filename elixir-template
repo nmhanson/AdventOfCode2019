@@ -18,9 +18,9 @@ prepared_input = Day@DAY_NUM.prepare_input(input)
 
 result =
   case System.argv() do
-    ["1"] -> Day@DAY_NUM.part1(prepared_input)
-    ["2"] -> Day@DAY_NUM.part2(prepared_input)
-    [] -> Day@DAY_NUM.part1(prepared_input) <> "\n" <> Day@DAY_NUM.part2(prepared_input)
+    ["1"] -> "#{Day@DAY_NUM.part1(prepared_input)}"
+    ["2"] -> "#{Day@DAY_NUM.part2(prepared_input)}"
+    [] -> "#{Day@DAY_NUM.part1(prepared_input)}\n#{Day@DAY_NUM.part2(prepared_input)}"
     _ -> "?"
   end
 

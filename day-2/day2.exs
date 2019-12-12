@@ -13,7 +13,7 @@ defmodule Day2 do
     |> Enum.find_value(fn stream ->
       Enum.find_value(stream, fn result ->
         case result do
-          {19690720, noun, verb} -> noun * 100 + verb
+          {19_690_720, noun, verb} -> noun * 100 + verb
           _ -> nil
         end
       end)
