@@ -1,13 +1,23 @@
 defmodule Day2 do
   def part1(input) do
-    List.replace_at(input, 1, 12)
-    |> List.replace_at(2, 2)
-    |> run_intcode
+    run_intcode(input, 12, 2)
     |> Enum.at(0)
   end
 
-  def part2(_input) do
-    # TODO
+  def part2(input) do
+    Stream.map(0..99, fn noun ->
+      Stream.map(0..99, fn verb ->
+        {Enum.at(run_intcode(input, noun, verb), 0), noun, verb}
+      end)
+    end)
+    |> Enum.find_value(fn stream ->
+      Enum.find_value(stream, fn result ->
+        case result do
+          {19690720, noun, verb} -> noun * 100 + verb
+          _ -> nil
+        end
+      end)
+    end)
   end
 
   def prepare_input(input) do
@@ -17,8 +27,14 @@ defmodule Day2 do
     |> Enum.map(fn {val, _} -> val end)
   end
 
-  defp run_intcode(master_list, rem_list, noun, verb) do
-    # TODO
+  defp run_intcode(master_list) do
+    run_intcode(master_list, master_list)
+  end
+
+  defp run_intcode(master_list, noun, verb) do
+    List.replace_at(master_list, 1, noun)
+    |> List.replace_at(2, verb)
+    |> run_intcode
   end
 
   defp run_intcode(master_list, rem_list) do
@@ -39,10 +55,6 @@ defmodule Day2 do
       |> run_intcode(rest)
     end
   end
-
-  defp run_intcode(master_list) do
-    run_intcode(master_list, master_list)
-  end
 end
 
 {:ok, input} = File.read("input.txt")
@@ -51,9 +63,9 @@ prepared_input = Day2.prepare_input(input)
 
 result =
   case System.argv() do
-    ["1"] -> Day2.part1(prepared_input)
-    ["2"] -> Day2.part2(prepared_input)
-    [] -> Day2.part1(prepared_input) <> "\n" <> Day2.part2(prepared_input)
+    ["1"] -> "#{Day2.part1(prepared_input)}"
+    ["2"] -> "#{Day2.part2(prepared_input)}"
+    [] -> "#{Day2.part1(prepared_input)}\n#{Day2.part2(prepared_input)}"
     _ -> "?"
   end
 
