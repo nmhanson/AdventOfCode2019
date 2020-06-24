@@ -3,7 +3,7 @@ defmodule Day@DAY_NUM do
     # TODO
   end
 
-  def part@DAY_NUM(input) do
+  def part2(input) do
     # TODO
   end
 
