@@ -3,7 +3,7 @@ defmodule Day3 do
     # TODO
   end
 
-  def part3(input) do
+  def part2(input) do
     # TODO
   end
 
